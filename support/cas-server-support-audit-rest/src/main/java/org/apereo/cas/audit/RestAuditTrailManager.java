@@ -37,6 +37,11 @@ public class RestAuditTrailManager extends AbstractAuditTrailManager {
     private final AuditActionContextJsonSerializer serializer = new AuditActionContextJsonSerializer();
     private final AuditRestProperties properties;
 
+    public RestAuditTrailManager(final AuditRestProperties properties) {
+        super(properties.isAsynchronous());
+        this.properties = properties;
+    }
+
     @Override
     public void saveAuditRecord(final AuditActionContext audit) {
         val auditJson = serializer.toString(audit);
@@ -61,5 +66,4 @@ public class RestAuditTrailManager extends AbstractAuditTrailManager {
         }
         return new HashSet<>(0);
     }
-
 }
