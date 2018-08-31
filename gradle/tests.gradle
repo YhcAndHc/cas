@@ -257,6 +257,34 @@ task testSupport(type: Test) {
     enabled = !Boolean.getBoolean("skipTests") && project.path.contains(":support")
 }
 
+task testWebapp(type: Test) {
+    include "**/*Tests.*"
+    useJUnit {
+        excludeCategories "org.apereo.cas.category.CassandraCategory"
+        excludeCategories "org.apereo.cas.category.CosmosDbCategory"
+        excludeCategories "org.apereo.cas.category.CouchbaseCategory"
+        excludeCategories "org.apereo.cas.category.DynamoDbCategory"
+        excludeCategories "org.apereo.cas.category.FileSystemCategory"
+        excludeCategories "org.apereo.cas.category.IgniteCategory"
+        excludeCategories "org.apereo.cas.category.InfluxDbCategory"
+        excludeCategories "org.apereo.cas.category.CouchDbCategory"
+        excludeCategories "org.apereo.cas.category.LdapCategory"
+        excludeCategories "org.apereo.cas.category.MailCategory"
+        excludeCategories "org.apereo.cas.category.MariaDbCategory"
+        excludeCategories "org.apereo.cas.category.MemcachedCategory"
+        excludeCategories "org.apereo.cas.category.MongoDbCategory"
+        excludeCategories "org.apereo.cas.category.MsSqlServerCategory"
+        excludeCategories "org.apereo.cas.category.MySQLCategory"
+        excludeCategories "org.apereo.cas.category.PostgresCategory"
+        excludeCategories "org.apereo.cas.category.RedisCategory"
+        excludeCategories "org.apereo.cas.category.RestfulApiCategory"
+    }
+    onlyIf {
+        "SIMPLE".equalsIgnoreCase(rootProject.testCategoryType)
+    }
+    enabled = !Boolean.getBoolean("skipTests") && project.path.contains(":webapp")
+}
+
 tasks.withType(Test) {
     exclude "**/Abstract*.*", "**/Base*.*", "**/*Suite.*"
     scanForTestClasses = false
